@@ -1,0 +1,86 @@
+
+<section class="wrapper">
+  <div class="title-product"> Danh sách sản phẩm </div>
+<div class="contain-button">
+  <div class="cart-contain"><button id="logout" (click)="logOut()">
+    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+    LogOut
+  </button>
+  </div>
+    <div class="cart-contain"><button id="cart" (click)="changeShow()">
+        <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+        Giỏ Hàng
+    </button>
+  </div>
+</div>
+
+  <div *ngIf="show" class="modal">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Giỏ Hàng</h5>
+              <span class="close" (click)="changeShow() ">&times;</span>
+          </div>
+            <div class="modal-body" *ngIf="listProduct">
+              <div class="item" *ngFor="let cart of shopCarts" >
+                  <a class="delete-product" (click)="removeCart(cart.id)"></a>
+            
+                <div class="contain-image" >
+                  <img class="image-cart" src="../../assets/img/{{cart.img}}" alt="" />
+                </div>
+            
+                <div class="description">
+                  <span>{{cart.name}}</span>
+                
+                </div>
+            
+                <div class="quantity">
+                  <button class="plus-btn btn-quality" type="button" name="button"  (click)="changeQua(cart.id,1)">
+                    <img src="../../assets/img/plus.svg" alt="" />
+                  </button>
+                  <input type="text" name="name" min="0" disabled value="{{cart.quality}}">
+                  <button class="minus-btn btn-quality" type="button" name="button" (click)="changeQua(cart.id,-1)"> 
+                    <img src="../../assets/img/minus.svg" alt="" />
+                  </button>
+                </div>
+            
+                <div class="total-price">$549</div>
+              </div>
+            <div class="cart-items">
+
+          
+            <div class="cart-total">
+                <strong class="cart-total-title">Tổng Cộng:</strong>
+                <span class="cart-total-price" *ngIf="shopCarts"> {{totalPrice()}}</span><span>VNĐ</span>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close-footer" (click)="changeShow()">Đóng</button>
+              <button type="button" class="btn btn-primary order">Thanh Toán</button>
+          </div>
+      </div>
+      </div>
+  </div>
+  <div class="products" *ngIf="listProduct">
+      <ul>
+          <li class="main-product" *ngFor="let product of listProduct">
+              <div class="img-product">
+                  <img class="img-prd"
+                      src="../../assets/img/{{product.img}}"
+                      alt="">
+              </div>
+              <div class="content-product">
+                  <h3 class="content-product-h3">{{product.name}}</h3>
+                  <div class="content-product-deltals">
+                      <div class="price">
+                          <span class="money">{{product.price}}</span><span>đ</span>
+                      </div>
+                      <button type="button" class="btn btn-cart" (click)="addToCarts(product.id, product.name, product.price, product.img)">Thêm Vào Giỏ</button>
+                  </div>
+              </div>
+          </li>
+          
+          
+      </ul>
+  </div>
+</section>
