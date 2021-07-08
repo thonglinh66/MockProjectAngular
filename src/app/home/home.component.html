@@ -43,14 +43,14 @@
                   </button>
                 </div>
             
-                <div class="total-price">$549</div>
+                <div class="total-price">{{formatPrice(cart.price*cart.quality)}}</div> <span>đ</span>
               </div>
             <div class="cart-items">
 
           
             <div class="cart-total">
                 <strong class="cart-total-title">Tổng Cộng:</strong>
-                <span class="cart-total-price" *ngIf="shopCarts"> {{totalPrice()}}</span><span>VNĐ</span>
+                <span class="cart-total-price" *ngIf="shopCarts"> {{totalPrice()}}</span><span>đ</span>
             </div>
           </div>
 
@@ -73,7 +73,7 @@
                   <h3 class="content-product-h3">{{product.name}}</h3>
                   <div class="content-product-deltals">
                       <div class="price">
-                          <span class="money">{{product.price}}</span><span>đ</span>
+                          <span class="money">{{formatPrice(product.price)}}</span><span>đ</span>
                       </div>
                       <button type="button" class="btn btn-cart" (click)="addToCarts(product.id, product.name, product.price, product.img)">Thêm Vào Giỏ</button>
                   </div>

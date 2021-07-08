@@ -92,14 +92,18 @@ export class HomeComponent implements OnInit {
   }
   changeQua(id:number,amount:number){
     var quality = this.shopCarts.find(item => item.id == id).quality;
+    var maxQuality = this.listProduct.find(item => item.id == id).quality;
     quality += amount;
-    if(quality > 0){
+    if(quality > 0 && quality < maxQuality){
       this.shopCarts.find(item => item.id == id).quality += amount;
     }
-    else{
+    else if(quality == 0){
       this.shopCarts.forEach((value,index)=>{
         if(value.id== id) this.shopCarts.splice(index,1);
       });
+    }
+    else{
+      alert("Quality was maximum");
     }
  
   }
