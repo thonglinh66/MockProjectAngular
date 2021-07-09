@@ -1,0 +1,44 @@
+
+
+<div class="modal" >
+  <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Giỏ Hàng</h5>
+        <span class="close" (click)="changeShow()">&times;</span>
+    </div>
+    <div class="modal-body" *ngIf="(cartsObser |async) as cart" >
+      <!-- <div > {{(cartsObser | async)}} </div> -->
+      <div class="item"  *ngFor="let product of cart.products " >
+          <a class="delete-product" (click)="removeCart(product.id)"></a>
+    
+        <div class="contain-image" >
+          <img class="image-cart" src="../../assets/img/{{product.img}}" alt="" />
+        </div>
+    
+        <div class="description">
+          <span>{{product.name}}</span>
+        </div>
+        <div class="quantity">
+          <button class="plus-btn btn-quality" type="button" name="button"  (click)="changeQua(product , 1)">
+            <img src="../../assets/img/plus.svg" alt="" />
+          </button>
+          <input type="text" name="name" min="0" disabled value="{{product.quality}}">
+          <button class="minus-btn btn-quality" type="button" name="button" (click)="changeQua(product,-1)"> 
+            <img src="../../assets/img/minus.svg" alt="" />
+          </button>
+        </div>
+        <div class="total-price">{{(product.price * product.quality) |currency:"VND":"symbol"}}</div>  
+      </div>
+      <div class="cart-items">
+        <div class="cart-total">
+          <strong class="cart-total-title">Tổng Cộng:</strong>
+            <span class="cart-total-price" > {{cart.total |currency:"VND":"symbol"}}</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary close-footer" (click)="changeShow()" >Đóng</button>
+        <button type="button" class="btn btn-primary order">Thanh Toán</button>
+      </div>
+    </div>
+  </div>  
+</div>

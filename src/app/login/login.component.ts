@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { first } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  error: string ;
-  constructor(private router:Router) { }
+   error = '';
+  constructor(private router:Router, private authenticationService: AuthService, private route: ActivatedRoute,) { }
   
   ngOnInit() {
   }
@@ -21,13 +23,18 @@ export class LoginComponent implements OnInit {
     var username = e.target.elements[0].value;
   	var password = e.target.elements[1].value;
     // console.log(username + " == username" + password +" === 123");
-    if(username === "username" && password === "123"){
-      localStorage.setItem('token', this.rand() + this.rand());
-      this.error = "";
-      this.router.navigate(['home']);
-    }else{
-      this.error = "Username or Password dont correct!!";
-    }
+    this.authenticationService.login(username, password)
+    .pipe(first())
+    .subscribe({
+        next: () => {
+            // get return url from query parameters or default to home page
+            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'home';
+            this.router.navigateByUrl(returnUrl);
+        },
+        error: error => {
+            this.error = error;
+        }
+    });
   }
 
 }

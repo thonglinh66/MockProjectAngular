@@ -1,0 +1,16 @@
+<li class="main-product" *ngFor="let product of productsObs |async">
+  <div class="img-product">
+      <img class="img-prd"
+          src="../../assets/img/{{product.img}}"
+          alt="">
+  </div>
+  <div class="content-product">
+      <h3 class="content-product-h3">{{product.name}}</h3>
+      <div class="content-product-deltals">
+          <div class="price">
+              <span class="money">{{product.price |currency:"VND":"symbol"}}</span>
+          </div>
+          <button type="button" class="btn btn-cart" (click)="addToCarts(product.id, product.name, product.price, product.img)">Thêm Vào Giỏ</button>
+      </div>
+  </div>
+</li>
