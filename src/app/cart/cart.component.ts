@@ -42,6 +42,7 @@ export class CartComponent implements OnInit {
 
   removeCart(id: number){
     this.service.delCart(id);
+    this.home.refresh();
   }
 
   changeQua( product: Product, val: number){
