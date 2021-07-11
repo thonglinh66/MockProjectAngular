@@ -21,13 +21,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.refresh();
+    this.cartSer.getAll().subscribe();
+    this.cartSer.carts.subscribe(item => {
+      this.lenght = item.products.length;
+    })
   }
 
   refresh(){
-    this.cartSer.getAll().subscribe(item => {
-      this.lenght = item.products.length;
-    })
+    
   }
 
   changeShow(){

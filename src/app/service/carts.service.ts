@@ -12,7 +12,7 @@ import { ProductService } from "./product.service";
 export class CartService{
     cartSubject: Subject<Cart>;
     private _cartObservable: Observable<Cart>;
-    cart: Cart ;
+    cart: Cart;
     constructor(private http: HttpClient, private auth: AuthService, private pruductSer: ProductService){
         this.cartSubject =  new Subject<Cart>();
         
@@ -23,6 +23,8 @@ export class CartService{
             this._cartObservable = this.cartSubject.asObservable();
         return this._cartObservable;
     }
+
+   
 
     public getAll(): Observable<Cart> {
         let userId = this.auth.userValue.id;
@@ -92,12 +94,13 @@ export class CartService{
             let productItem =  this.cart.products;
             let total = this.total();
             this.cart.total = total;
+            
             this.http.post(`${environment.apiUrl}/addcart`,{ userId, id,  productItem, total})
                 .pipe(map((res) => {
                     return res;
                 }));
         }
-       
+        this.cartSubject.next(this.cart);
         console.log(this.cart);
        
     }
